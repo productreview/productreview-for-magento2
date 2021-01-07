@@ -1,0 +1,19 @@
+<?php
+
+use Productreview\Reviews\Block\ProductReviewCodeSnippets;
+
+/* @var $block ProductReviewCodeSnippets */
+
+if (!$block->isModuleActive()) {
+    return;
+}
+
+$credentials = $block->getCredentials();
+$order       = $block->getLastRealOrder();
+
+echo $block::conversionTracking(
+    $credentials->getExternalCatalogId(),
+    $order->getId(),
+    $order->getGrandTotal(),
+    $order->getOrderCurrencyCode()
+);

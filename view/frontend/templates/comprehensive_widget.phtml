@@ -1,0 +1,22 @@
+<?php
+
+use Productreview\Reviews\Block\ProductReviewCodeSnippets;
+use Productreview\Reviews\Model\Settings;
+
+/* @var $block ProductReviewCodeSnippets */
+
+if (!$block->isModuleActive()) {
+    return;
+}
+
+$settings = $block->getSettings();
+
+if ($settings->getProductPageComprehensiveWidget() !== Settings::PRODUCT_PAGE_COMPREHENSIVE_WIDGET_PAGE_FOOTER) {
+    return;
+}
+
+if (!$block->findCurrentProduct()) {
+    return;
+}
+
+echo $block::comprehensiveWidget($block->findCurrentProduct()->getId());

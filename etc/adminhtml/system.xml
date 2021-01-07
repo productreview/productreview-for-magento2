@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="main_tab" translate="label" sortOrder="400">
+            <label>Productreview</label>
+        </tab>
+
+        <section id="main_section" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>main_tab</tab>
+            <label>Main</label>
+            <resource>Productreview_Reviews::configuration</resource>
+            <class>separator-top</class>
+
+            <group id="module_info" sortOrder="1" translate="label" type="note" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Module Info</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="module_info_field" translate="label comment" type="note" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Productreview\Reviews\Block\System\Config\ModuleInfo</frontend_model>
+                </field>
+            </group>
+
+            <group id="set_state" sortOrder="2" translate="label" type="text" showInStore="1">
+                <label>Enable ProductReview Module</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="is_enabled" translate="label comment" type="select" showInStore="1">
+                    <label>Enable ProductReview Module</label>
+
+                    <config_path>productreview/state/is_enabled</config_path>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="set_credentials" sortOrder="3" translate="label" type="text" showInStore="1">
+                <label>Credentials</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="catalog_id" translate="label comment" type="select" sortOrder="1" showInStore="1">
+                    <label>Market Location</label>
+                    <comment>This plugin can only be used by stores targeting the Australian market (English and AUD).</comment>
+
+                    <config_path>productreview/credentials/catalog_id</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\InternalCatalogId</source_model>
+                </field>
+
+                <field id="external_catalog_id" translate="label comment" type="text" sortOrder="2" showInStore="1">
+                    <label>External Catalog Id</label>
+
+                    <config_path>productreview/credentials/external_catalog_id</config_path>
+                </field>
+                <field id="secret_key" translate="label comment" type="text" sortOrder="3" showInStore="1">
+                    <label>Secret Key</label>
+
+                    <config_path>productreview/credentials/secret_key</config_path>
+                </field>
+            </group>
+
+            <group id="update_module_settings" sortOrder="4" showInStore="1" translate="label">
+                <label>Module Settings</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="main_loader_script" translate="label comment" type="select" sortOrder="1" showInStore="1" canRestore="1">
+                    <label>Main Loader Script (*)</label>
+                    <comment>(*) The main loader script is required for any widgets to work. A manual implementation is usually not necessary and not recommended.</comment>
+
+                    <config_path>productreview/settings/main_loader_script</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\MainLoaderScript</source_model>
+                </field>
+                <field id="product_page_comprehensive_widget" translate="label" type="select" sortOrder="2" showInStore="1" canRestore="1">
+                    <label>Product Page Comprehensive Widget</label>
+
+                    <config_path>productreview/settings/product_page_comprehensive_widget</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\ProductPageComprehensiveWidget</source_model>
+                </field>
+                <field id="product_page_inline_rating" translate="label comment" type="select" sortOrder="3" showInStore="1" canRestore="1">
+                    <label>Product Page Inline Rating</label>
+                    <comment>
+                        Pro-Tip: When setting-up the inline rating widget on ProductReview, create a configuration alias called: "magento2_product_page.
+                        It will allow you to apply styles only for the widgets on the product page.
+                        (E.g.: Spacing required around the widget could be different depending on its location.)
+                    </comment>
+
+                    <config_path>productreview/settings/product_page_inline_rating</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\ProductPageInlineRating</source_model>
+                </field>
+                <field id="category_page_inline_rating" translate="label comment" type="select" sortOrder="4" showInStore="1" canRestore="1">
+                    <label>Category Page Inline Rating</label>
+                    <comment>
+                        Pro-Tip: When setting-up the inline rating widget on ProductReview, create a configuration alias called: "magento2_category_page".
+                        It will allow you to apply styles only for the widgets on the category page.
+                        (E.g.: Spacing required around the widget could be different depending on its location.)
+                    </comment>
+
+                    <config_path>productreview/settings/category_page_inline_rating</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\CategoryPageInlineRating</source_model>
+                </field>
+            </group>
+
+            <group id="update_miscellaneous_module_settings" sortOrder="4" showInStore="1" translate="label">
+                <label>Miscellaneous Settings</label>
+
+                <field id="logging" translate="label" type="select" sortOrder="1" showInStore="1" canRestore="1">
+                    <label>Logging</label>
+
+                    <config_path>productreview/settings/logging</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\Logging</source_model>
+                </field>
+                <field id="native_review_system" translate="label" type="select" sortOrder="2" showInStore="1" canRestore="1">
+                    <label>Native Review System</label>
+
+                    <config_path>productreview/settings/native_review_system</config_path>
+                    <source_model>Productreview\Reviews\Block\System\Config\NativeReviewSystem</source_model>
+                </field>
+            </group>
+
+            <group id="post_purchase_review_invitation" sortOrder="5" translate="label" showInStore="1">
+                <label>Post Purchase Review Invitation</label>
+
+                <field id="module_info_field" type="note" showInStore="1">
+                    <frontend_model>Productreview\Reviews\Block\System\Config\PostPurchaseReviewInvitation</frontend_model>
+                </field>
+            </group>
+
+            <!-- Coming soon
+            <group id="share_all_past_orders" sortOrder="6" translate="label" showInStore="1">
+                <label>Invite your previous customers</label>
+
+                <field id="module_info_field" type="note" showInStore="1">
+                    <frontend_model>Productreview\Reviews\Block\System\Config\ShareAllPastOrders</frontend_model>
+                </field>
+            </group>
+
+            <group id="export_native_reviews" sortOrder="7" translate="label" type="note" showInStore="1">
+                <label>Import Existing Reviews into ProductReview</label>
+
+                <field id="module_info_field" type="note" showInStore="1">
+                    <frontend_model>Productreview\Reviews\Block\System\Config\ExportNativeReviews</frontend_model>
+                </field>
+            </group>
+            -->
+        </section>
+    </system>
+</config>

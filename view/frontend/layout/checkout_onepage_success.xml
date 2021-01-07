@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="order.success.additional.info">
+            <block
+                name="productreview_conversion_tracking"
+                template="Productreview_Reviews::conversion_tracking.phtml"
+                ifconfig="productreview/state/is_enabled"
+                cacheable="false"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            />
+        </referenceContainer>
+    </body>
+</page>

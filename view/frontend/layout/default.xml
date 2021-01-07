@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block
+                name="productreview_main_loader_script"
+                template="Productreview_Reviews::main_loader_script.phtml"
+                ifconfig="productreview/state/is_enabled"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            />
+            <block
+                name="productreview_category_page_inline_rating_loader_script"
+                template="Productreview_Reviews::inline_rating_loader_script.phtml"
+                ifconfig="productreview/state/is_enabled"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            >
+                <arguments>
+                    <argument name="section" xsi:type="string">magento2_category_page</argument>
+                </arguments>
+            </block>
+
+            <block
+                name="productreview_product_page_inline_rating_loader_script"
+                template="Productreview_Reviews::inline_rating_loader_script.phtml"
+                ifconfig="productreview/state/is_enabled"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            >
+                <arguments>
+                    <argument name="section" xsi:type="string">magento2_product_page</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="content.aside">
+            <block
+                name="productreview_product_page_comprehensive_widget"
+                template="Productreview_Reviews::comprehensive_widget.phtml"
+                ifconfig="productreview/state/is_enabled"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            />
+        </referenceBlock>
+        <referenceContainer name="product.info.main">
+            <block
+                name="productreview_product_page_inline_rating"
+                before="product.info.addto"
+                template="Productreview_Reviews::inline_rating.phtml"
+                ifconfig="productreview/state/is_enabled"
+                class="Productreview\Reviews\Block\ProductReviewCodeSnippets"
+            >
+                <arguments>
+                    <argument name="section" xsi:type="string">magento2_product_page</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

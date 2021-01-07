@@ -1,0 +1,19 @@
+<?php
+
+use Productreview\Reviews\Block\ProductReviewCodeSnippets;
+use Productreview\Reviews\Model\Settings;
+
+/* @var $block ProductReviewCodeSnippets */
+
+if (!$block->isModuleActive()) {
+    return;
+}
+
+$credentials = $block->getCredentials();
+$settings    = $block->getSettings();
+
+if ($settings->getMainLoaderScript() !== Settings::MAIN_LOADER_SCRIPT_ENABLED) {
+    return;
+}
+
+echo $block::mainLoaderScript($credentials->getExternalCatalogId());
