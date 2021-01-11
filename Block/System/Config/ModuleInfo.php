@@ -55,7 +55,6 @@ HTML
 ?>
 <div>
     <div>
-        <?php echo __('ProductReview Module Version: ') ?><strong><?php echo ModuleDetails::MODULE_VERSION; ?></strong>
         <?php echo strtr(
             __('(<github_link>See project on Github</github_link> — for developers)'),
             [
