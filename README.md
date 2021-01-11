@@ -27,7 +27,7 @@ php bin/magento setup:static-content:deploy
 
 ## Install the module manually
 
-[Download the latest version of the module.](https://github.com/productreview/productreview-for-magento2/archive/master.zip)
+[Download the latest version of the module.](https://github.com/productreview/productreview-for-magento2/archive/main.zip)
 
 Unzip the module in your Magento directory.
 
