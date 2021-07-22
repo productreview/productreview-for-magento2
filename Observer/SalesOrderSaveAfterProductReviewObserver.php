@@ -13,6 +13,8 @@ use \Exception;
 
 final class SalesOrderSaveAfterProductReviewObserver implements ObserverInterface
 {
+    const NOTIFICATION_ORDER_STATUSES = ['canceled', 'complete'];
+
     protected $processor;
     protected $productRepository;
     protected $productreviewHttpClient;
@@ -32,6 +34,7 @@ final class SalesOrderSaveAfterProductReviewObserver implements ObserverInterfac
 
     public function execute(Observer $observer)
     {
+
         if (!$this->repository->isModuleEnabled()) {
             return;
         }
@@ -52,7 +55,7 @@ final class SalesOrderSaveAfterProductReviewObserver implements ObserverInterfac
             return;
         }
 
-        if (!in_array($order->getData('status'), ['canceled', 'completed'])) {
+        if (!in_array($order->getData('status'), self::NOTIFICATION_ORDER_STATUSES)) {
             return;
         }
 

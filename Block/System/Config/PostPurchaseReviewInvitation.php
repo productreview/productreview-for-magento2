@@ -44,7 +44,7 @@ final class PostPurchaseReviewInvitation extends Field
 ?>
 <p>
     <i>
-        <?= __('Whenever the status of an order changes to <strong>completed</strong> or <strong>canceled</strong> on Magento2, ProductReview gets notified automatically.') ?>
+        <?= __('Whenever the status of an order changes to <strong>complete</strong> or <strong>canceled</strong> on Magento2, ProductReview gets notified automatically.') ?>
     </i>
 </p>
 

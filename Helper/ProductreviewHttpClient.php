@@ -112,8 +112,8 @@ final class ProductreviewHttpClient
     {
         return [
             'magentoVersion' => $this->getMagentoVersion(),
-            'pluginVersion' => $this->getPluginVersion(),
-            'phpVersion'    => $this->getPhpVersion(),
+            'pluginVersion'  => $this->getPluginVersion(),
+            'phpVersion'     => $this->getPhpVersion(),
         ];
     }
 
