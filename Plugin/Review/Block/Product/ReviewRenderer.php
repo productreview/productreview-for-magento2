@@ -10,7 +10,7 @@ use Productreview\Reviews\Block\ProductReviewCodeSnippets;
 use Productreview\Reviews\Helper\Repository;
 use Productreview\Reviews\Model\Settings;
 
-final class ReviewRenderer
+class ReviewRenderer
 {
     private $repository;
     private $scopeConfig;

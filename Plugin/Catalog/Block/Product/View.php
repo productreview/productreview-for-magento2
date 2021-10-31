@@ -7,7 +7,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Productreview\Reviews\Helper\Repository;
 use Productreview\Reviews\Model\Settings;
 
-final class View
+class View
 {
     private $repository;
     private $scopeConfig;

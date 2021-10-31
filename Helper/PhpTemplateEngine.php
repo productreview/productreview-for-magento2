@@ -2,7 +2,7 @@
 
 namespace Productreview\Reviews\Helper;
 
-final class PhpTemplateEngine
+class PhpTemplateEngine
 {
     static public function render(callable $fn)
     {

@@ -20,7 +20,7 @@ use \Exception;
 /**
  * TODO: Extract and inject Order normalization logic
  */
-final class ProductreviewHttpClient
+class ProductreviewHttpClient
 {
     private $processor;
 	private $urlGenerator;

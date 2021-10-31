@@ -2,7 +2,7 @@
 
 namespace Productreview\Reviews\Model;
 
-final class ModuleDetails
+class ModuleDetails
 {
     const MODULE_NAME = 'Productreview_Reviews';
 

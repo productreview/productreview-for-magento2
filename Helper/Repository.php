@@ -7,7 +7,7 @@ use Magento\Store\Model\ScopeInterface;
 use Productreview\Reviews\Model\Credentials;
 use Productreview\Reviews\Model\Settings;
 
-final class Repository
+class Repository
 {
     const CONFIG_BOOLEAN_TRUE  = '1';
     const CONFIG_BOOLEAN_FALSE = '0';

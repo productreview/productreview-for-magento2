@@ -11,7 +11,7 @@ use Magento\Sales\Model\Order;
 use Productreview\Reviews\Helper\Repository;
 use \Exception;
 
-final class ProductReviewCodeSnippets extends Template
+class ProductReviewCodeSnippets extends Template
 {
     private $session;
     private $registry;

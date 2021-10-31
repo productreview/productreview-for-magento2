@@ -4,7 +4,7 @@ namespace Productreview\Reviews\Model;
 
 use \Exception;
 
-final class Credentials
+class Credentials
 {
 	const CURRENT_VERSION = 1;
 
