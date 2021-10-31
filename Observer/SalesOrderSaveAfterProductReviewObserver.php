@@ -11,7 +11,7 @@ use Productreview\Reviews\Helper\ProductreviewHttpClient;
 use Productreview\Reviews\Helper\Repository;
 use \Exception;
 
-final class SalesOrderSaveAfterProductReviewObserver implements ObserverInterface
+class SalesOrderSaveAfterProductReviewObserver implements ObserverInterface
 {
     const NOTIFICATION_ORDER_STATUSES = ['canceled', 'complete'];
 

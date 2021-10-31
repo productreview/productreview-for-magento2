@@ -11,7 +11,7 @@ use Productreview\Reviews\Helper\UrlGenerator;
 use Productreview\Reviews\Model\ModuleDetails;
 use \Exception;
 
-final class ModuleInfo extends Field
+class ModuleInfo extends Field
 {
     private $scopeConfig;
     private $repository;

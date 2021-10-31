@@ -9,7 +9,7 @@ use Productreview\Reviews\Helper\Repository;
 use Productreview\Reviews\Helper\UrlGenerator;
 use Productreview\Reviews\Model\ModuleDetails;
 
-final class ShareAllPastOrders extends Field
+class ShareAllPastOrders extends Field
 {
     private $urlGenerator;
     private $repository;

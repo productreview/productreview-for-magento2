@@ -4,7 +4,7 @@ namespace Productreview\Reviews\Helper;
 
 use \Exception;
 
-final class UrlGenerator
+class UrlGenerator
 {
     const AUSTRALIAN_CATALOG = 'au';
 
