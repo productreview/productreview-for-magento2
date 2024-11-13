@@ -34,30 +34,21 @@ class SalesOrderSaveAfterProductReviewObserver implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-
-        if (!$this->repository->isModuleEnabled()) {
-            return;
-        }
-
-        $credentials = $this->repository->findCredentials();
-
-        if (!$credentials) {
-            return;
-        }
-
         $order = $observer->getEvent()->getData('order');
 
-        if (!($order instanceof Order)) {
-            return;
-        }
+        if (!($order instanceof Order)) return;
 
-        if ($order->getOrigData('status') === $order->getData('status')) {
-            return;
-        }
+        if ($order->getStoreId() === null) return;
 
-        if (!in_array($order->getData('status'), self::NOTIFICATION_ORDER_STATUSES)) {
-            return;
-        }
+        if (!$this->repository->isModuleEnabled($order->getStoreId())) return;
+
+        $credentials = $this->repository->findCredentials($order->getStoreId());
+
+        if (!$credentials) return;
+
+        if ($order->getOrigData('status') === $order->getData('status')) return;
+
+        if (!in_array($order->getData('status'), self::NOTIFICATION_ORDER_STATUSES)) return;
 
         try {
             $this->productreviewHttpClient->notifyOrder($credentials, $order);

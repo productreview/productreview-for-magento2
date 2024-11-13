@@ -28,7 +28,7 @@ class ShareAllPastOrders extends Field
 
     function render(AbstractElement $element)
     {
-        $integrationState = $this->repository->getIntegrationState();
+        $integrationState = $this->repository->getIntegrationState($this->getRequest()->getParam('store'));
 
         if ($integrationState === null || $integrationState['status'] !== ModuleDetails::CONNECTION_STATUS_SUCCESS) {
             return PhpTemplateEngine::render(function () {

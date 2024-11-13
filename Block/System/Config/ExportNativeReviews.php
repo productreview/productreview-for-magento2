@@ -1,6 +1,6 @@
 <?php
 namespace Productreview\Reviews\Block\System\Config;
- 
+
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Productreview\Reviews\Helper\PhpTemplateEngine;
@@ -28,7 +28,7 @@ class ExportNativeReviews extends Field
 
     function render(AbstractElement $element)
     {
-        $integrationState = $this->repository->getIntegrationState();
+        $integrationState = $this->repository->getIntegrationState($this->getRequest()->getParam('store'));
 
         if ($integrationState === null || $integrationState['status'] !== ModuleDetails::CONNECTION_STATUS_SUCCESS) {
             return PhpTemplateEngine::render(function () {
@@ -43,9 +43,7 @@ class ExportNativeReviews extends Field
         return PhpTemplateEngine::render(function () {
             $url = $this->urlGenerator->generate(
                 UrlGenerator::PR_APP_BM_EXTERNAL_CATALOG_CONTACT,
-                [
-                    'reason' => 'review_import'
-                ]
+                ['reason' => 'review_import']
             );
 
 ?>

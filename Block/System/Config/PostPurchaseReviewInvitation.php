@@ -1,6 +1,6 @@
 <?php
 namespace Productreview\Reviews\Block\System\Config;
- 
+
 use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
@@ -28,7 +28,7 @@ class PostPurchaseReviewInvitation extends Field
 
     function render(AbstractElement $element)
     {
-        $integrationState = $this->repository->getIntegrationState();
+        $integrationState = $this->repository->getIntegrationState($this->getRequest()->getParam('store'));
 
         if ($integrationState === null || $integrationState['status'] !== ModuleDetails::CONNECTION_STATUS_SUCCESS) {
             return PhpTemplateEngine::render(function () {

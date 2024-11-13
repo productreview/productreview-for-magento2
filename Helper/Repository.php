@@ -30,27 +30,22 @@ class Repository
         $this->urlGenerator            = $urlGenerator;
     }
 
-    public function isModuleEnabled()
+    public function isModuleEnabled($storeId = null)
     {
-        return $this->getConfigValue('productreview/state/is_enabled') === self::CONFIG_BOOLEAN_TRUE;
+        return $this->getConfigValue($storeId, 'productreview/state/is_enabled') === self::CONFIG_BOOLEAN_TRUE;
     }
 
-    public function isModuleActive()
+    public function isModuleActive($storeId = null)
     {
-        if (!$this->isModuleEnabled()) {
-            return false;
-        }
-
-        if ($this->findCredentials() === null) {
-            return false;
-        }
+        if (!$this->isModuleEnabled($storeId)) return false;
+        if ($this->findCredentials($storeId) === null) return false;
 
         return true;
     }
 
-    public function findCredentials()
+    public function findCredentials($storeId = null)
     {
-        if (!$this->areConfigValuesSet([
+        if (!$this->areConfigValuesSet($storeId, [
             'productreview/credentials/catalog_id',
             'productreview/credentials/external_catalog_id',
             'productreview/credentials/secret_key'
@@ -59,15 +54,15 @@ class Repository
         }
 
         return new Credentials(
-            $this->getConfigValue('productreview/credentials/catalog_id'),
-            $this->getConfigValue('productreview/credentials/external_catalog_id'),
-            $this->getConfigValue('productreview/credentials/secret_key')
+            $this->getConfigValue($storeId, 'productreview/credentials/catalog_id'),
+            $this->getConfigValue($storeId, 'productreview/credentials/external_catalog_id'),
+            $this->getConfigValue($storeId, 'productreview/credentials/secret_key')
         );
     }
 
-    public function getSettings()
+    public function getSettings($storeId = null)
     {
-        if (!$this->areConfigValuesSet([
+        if (!$this->areConfigValuesSet($storeId, [
             'productreview/settings/main_loader_script',
             'productreview/settings/product_page_comprehensive_widget',
             'productreview/settings/product_page_inline_rating',
@@ -77,53 +72,49 @@ class Repository
         }
 
         return new Settings(
-            $this->getConfigValue('productreview/settings/logging'),
-            $this->getConfigValue('productreview/settings/native_review_system'),
-            $this->getConfigValue('productreview/settings/main_loader_script'),
-            $this->getConfigValue('productreview/settings/product_page_comprehensive_widget'),
-            $this->getConfigValue('productreview/settings/product_page_inline_rating'),
-            $this->getConfigValue('productreview/settings/category_page_inline_rating')
+            $this->getConfigValue($storeId, 'productreview/settings/logging'),
+            $this->getConfigValue($storeId, 'productreview/settings/native_review_system'),
+            $this->getConfigValue($storeId, 'productreview/settings/main_loader_script'),
+            $this->getConfigValue($storeId, 'productreview/settings/product_page_comprehensive_widget'),
+            $this->getConfigValue($storeId, 'productreview/settings/product_page_inline_rating'),
+            $this->getConfigValue($storeId, 'productreview/settings/category_page_inline_rating')
         );
     }
 
-    public function getIntegrationState()
+    public function getIntegrationState($storeId = null)
     {
-        $credentials = $this->findCredentials();
-
-        $hash = $credentials ? $credentials->computeHash() : 'empty';
+        $credentials = $this->findCredentials($storeId);
 
         return static::heavy(
-            static::computeCacheId(self::CACHE_BUCKET_INTEGRATION_STATE, $hash),
+            static::computeCacheId($storeId, self::CACHE_BUCKET_INTEGRATION_STATE, $credentials ? $credentials->computeHash() : 'empty'),
             function () use ($credentials){
                 return $this->productreviewHttpClient->getIntegrationState($credentials);
             }
         );
     }
 
-    private function getConfigValue($xmlPath)
+    private function getConfigValue($storeId, $xmlPath)
     {
-        return $this->scopeConfig->getValue($xmlPath, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue($xmlPath, ScopeInterface::SCOPE_STORE, $storeId);
     }
 
-    private function areConfigValuesSet(array $xmlPaths = [])
+    private function areConfigValuesSet($storeId, array $xmlPaths = [])
     {
         foreach ($xmlPaths as $xmlPath) {
-            if (!$this->isConfigValueSet($xmlPath)) {
-                return false;
-            }
+            if (!$this->isConfigValueSet($storeId, $xmlPath)) return false;
         }
 
         return true;
     }
 
-    private function isConfigValueSet($xmlPath)
+    private function isConfigValueSet($storeId, $xmlPath)
     {
-        return $this->scopeConfig->isSetFlag($xmlPath, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->isSetFlag($xmlPath, ScopeInterface::SCOPE_STORE, $storeId);
     }
 
-    static private function computeCacheId($bucket, $hash)
+    static private function computeCacheId($storeId, $bucket, $hash)
     {
-        return $bucket . ':' . $hash;
+        return $storeId . ':' . $bucket . ':' . $hash;
     }
 
     static private function isCached($cacheId)
@@ -133,9 +124,7 @@ class Repository
 
     static private function findFromCache($cacheId)
     {
-        if (!static::isCached($cacheId)) {
-            return null;
-        }
+        if (!static::isCached($cacheId)) return null;
 
         return static::$cache[$cacheId];
     }

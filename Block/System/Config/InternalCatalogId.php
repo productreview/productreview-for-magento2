@@ -1,6 +1,6 @@
 <?php
 namespace Productreview\Reviews\Block\System\Config;
- 
+
 use Magento\Framework\Option\ArrayInterface;
 
 class InternalCatalogId implements ArrayInterface
@@ -18,6 +18,6 @@ class InternalCatalogId implements ArrayInterface
      */
     public function toArray()
     {
-        return ['au' => __('No'), 1 => __('Australia (AUD)')];
+        return ['au' => __('Australia (AUD)')];
     }
 }

@@ -31,14 +31,14 @@ class ProductReviewCodeSnippets extends Template
         parent::__construct($context, $data);
     }
 
-    public function isModuleActive()
+    public function isModuleActive($storeId = null)
     {
-        return $this->repository->isModuleActive();
+        return $this->repository->isModuleActive($storeId);
     }
 
-    public function getCredentials()
+    public function getCredentials($storeId = null)
     {
-        $credentials = $this->repository->findCredentials();
+        $credentials = $this->repository->findCredentials($storeId);
 
         if (!$credentials) {
             throw new Exception('No credentials found. Use isModuleActive before trying to use get credentials.');
@@ -47,9 +47,9 @@ class ProductReviewCodeSnippets extends Template
         return $credentials;
     }
 
-    public function getSettings()
+    public function getSettings($storeId = null)
     {
-        return $this->repository->getSettings();
+        return $this->repository->getSettings($storeId);
     }
 
     /**

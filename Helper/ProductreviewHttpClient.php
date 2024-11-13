@@ -99,9 +99,7 @@ class ProductreviewHttpClient
             ),
             [
                 'orders' => array_map(
-                    function ($order) {
-                        return $this->normalizeOrder($order);
-                    },
+                    function ($order) { return $this->normalizeOrder($order); },
                     $orders
                 )
             ]

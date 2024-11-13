@@ -128,9 +128,7 @@ class UrlGenerator
 
 	private function buildQueryParametersString(array $queryParameters)
 	{
-		if (empty($queryParameters)) {
-			return '';
-		}
+		if (empty($queryParameters)) return '';
 
 		return '?' . http_build_query($queryParameters);
 	}

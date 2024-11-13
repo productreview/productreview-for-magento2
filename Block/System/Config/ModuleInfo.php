@@ -1,6 +1,6 @@
 <?php
 namespace Productreview\Reviews\Block\System\Config;
- 
+
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Data\Form\Element\AbstractElement;
@@ -65,17 +65,17 @@ HTML
     </div>
 
     <div>
-        <?php echo $this->renderIntegrationState(); ?>
+        <?php echo $this->renderIntegrationState($this->getRequest()->getParam('store')); ?>
     </div>
 </div>
 <?php
         });
     }
 
-    function renderIntegrationState()
+    function renderIntegrationState($storeId)
     {
-        return PhpTemplateEngine::render(function () {
-            $integrationState = $this->repository->getIntegrationState();
+        return PhpTemplateEngine::render(function () use ($storeId) {
+            $integrationState = $this->repository->getIntegrationState($storeId);
 
             echo __('Status:') . ' ';
 
