@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="productreview-main" type="host">https://www.productreview.com.au</value>
+                <value id="productreview-cdn" type="host">https://cdn.productreview.com.au</value>
+                <value id="productreview-api" type="host">https://api.productreview.com.au</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

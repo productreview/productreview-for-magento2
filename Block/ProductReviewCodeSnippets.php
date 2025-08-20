@@ -9,6 +9,8 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Sales\Model\Order;
 use Productreview\Reviews\Helper\Repository;
+use Magento\Framework\App\ObjectManager;
+use Magento\Csp\Helper\CspNonceProvider;
 use \Exception;
 
 class ProductReviewCodeSnippets extends Template
@@ -68,7 +70,21 @@ class ProductReviewCodeSnippets extends Template
         return $this->session->getLastRealOrder();
     }
 
-    static public function mainLoaderScript($externalCatalogId, $brandId = null)
+    /**
+     * @return string|null
+     */
+    public function getNonce()
+    {
+        if (!class_exists(\Magento\Csp\Helper\CspNonceProvider::class)) {
+            return null;
+        }
+
+        $helper = ObjectManager::getInstance()->get(\Magento\Csp\Helper\CspNonceProvider::class);
+
+        return $helper ? $helper->generateNonce() : null;
+    }
+
+    static public function mainLoaderScript($externalCatalogId, $brandId = null, $nonce = null)
     {
         $json = json_encode(
             array_merge(
@@ -81,11 +97,13 @@ class ProductReviewCodeSnippets extends Template
 
         $loaderSrc = ($env === 'prod') ? 'https://cdn.productreview.com.au/assets/widgets/loader.js' : 'https://www.pr.test/dist/widgets/loader.js';
 
+        $nonceAttr = $nonce ? 'nonce="' . htmlspecialchars($nonce, ENT_QUOTES, 'UTF-8') . '"' : '';
+
         return <<<HTML
 <script>
   window.__productReviewSettings = $json;
 </script>
-<script src="$loaderSrc" async></script>
+<script src="$loaderSrc" async $nonceAttr></script>
 HTML;
     }
 

@@ -16,4 +16,4 @@ if ($settings->getMainLoaderScript() !== Settings::MAIN_LOADER_SCRIPT_ENABLED) {
     return;
 }
 
-echo $block::mainLoaderScript($credentials->getExternalCatalogId());
+echo $block::mainLoaderScript($credentials->getExternalCatalogId(), null, $block->getNonce());
