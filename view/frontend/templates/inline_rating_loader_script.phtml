@@ -5,25 +5,21 @@ use Productreview\Reviews\Model\Settings;
 
 /* @var $block ProductReviewCodeSnippets */
 
-if (!$block->isModuleActive()) {
-    return;
-}
+if (!$block->isModuleActive()) return;
 
 $settings = $block->getSettings();
 
 switch ($block->getData('section')) {
     case 'magento2_product_page':
-        if ($settings->getProductPageInlineRating() !== Settings::PRODUCT_PAGE_INLINE_RATING_ENABLED) {
-            return;
-        }
+        if ($settings->getProductPageInlineRating() !== Settings::PRODUCT_PAGE_INLINE_RATING_ENABLED) return;
+
         break;
     case 'magento2_category_page':
-        if ($settings->getCategoryPageInlineRating() !== Settings::CATEGORY_PAGE_INLINE_RATING_ENABLED) {
-            return;
-        }
+        if ($settings->getCategoryPageInlineRating() !== Settings::CATEGORY_PAGE_INLINE_RATING_ENABLED) return;
+
         break;
     default:
         return;
 }
 
-echo $block::inlineRatingLoaderScript($block->getData('section'));
+echo $block::inlineRatingLoaderScript($block->getData('section'), $block->getNonce());

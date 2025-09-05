@@ -100,14 +100,14 @@ class ProductReviewCodeSnippets extends Template
         $nonceAttr = $nonce ? 'nonce="' . htmlspecialchars($nonce, ENT_QUOTES, 'UTF-8') . '"' : '';
 
         return <<<HTML
-<script>
+<script $nonceAttr>
   window.__productReviewSettings = $json;
 </script>
 <script src="$loaderSrc" async $nonceAttr></script>
 HTML;
     }
 
-    static public function conversionTracking($externalOwnerId, $orderId, $orderTotal, $orderCurrency)
+    static public function conversionTracking($externalOwnerId, $orderId, $orderTotal, $orderCurrency, $nonce = null)
     {
 
         return self::generateConventionalSnippet(
@@ -120,11 +120,12 @@ HTML;
                     'amount'   => $orderTotal,
                     'currency' => $orderCurrency
                 ]
-            ]
+            ],
+            $nonce
         );
     }
 
-    static public function comprehensiveWidget($productId) {
+    static public function comprehensiveWidget($productId, $nonce = null) {
         $script = self::generateConventionalSnippet(
             'comprehensive-widget',
             [
@@ -134,7 +135,8 @@ HTML;
                     'strategy'   => 'from-catalog-external-entry-external-id',
                     'identifier' => "$productId"
                 ]
-            ]
+            ],
+            $nonce
         );
 
         return <<<HTML
@@ -153,7 +155,7 @@ HTML;
 HTML;
     }
 
-    static public function inlineRatingLoaderScript($alias) {
+    static public function inlineRatingLoaderScript($alias, $nonce = null) {
 
         return self::generateConventionalSnippet(
             'inline-rating',
@@ -161,16 +163,19 @@ HTML;
                 'nodes'                  => ".pr-inline-rating-$alias",
                 'alias'                  => $alias,
                 'identificationStrategy' => 'from-catalog-external-entry-external-id'
-            ]
+            ],
+            $nonce
         );
     }
 
-    static private function generateConventionalSnippet($widgetSlug, $settings)
+    static private function generateConventionalSnippet($widgetSlug, $settings, $nonce = null)
     {
         $settingsAsJavascriptString = is_array($settings) ? json_encode($settings) : $settings;
 
+        $nonceAttr = $nonce ? 'nonce="' . htmlspecialchars($nonce, ENT_QUOTES, 'UTF-8') . '"' : '';
+
         return <<<HTML
-<script>
+<script $nonceAttr>
   window.__productReviewCallbackQueue = window.__productReviewCallbackQueue || [];
   window.__productReviewCallbackQueue.push(function(ProductReview) {
     ProductReview.use('$widgetSlug', $settingsAsJavascriptString);

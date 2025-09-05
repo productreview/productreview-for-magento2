@@ -5,22 +5,18 @@ use Productreview\Reviews\Model\Settings;
 
 /* @var $block ProductReviewCodeSnippets */
 
-if (!$block->isModuleActive()) {
-    return;
-}
+if (!$block->isModuleActive()) return;
 
 $settings = $block->getSettings();
 
 switch ($block->getData('section')) {
     case 'product':
-        if ($settings->getProductPageInlineRating() !== Settings::PRODUCT_PAGE_INLINE_RATING_ENABLED) {
-            return;
-        }
+        if ($settings->getProductPageInlineRating() !== Settings::PRODUCT_PAGE_INLINE_RATING_ENABLED) return;
+
         break;
     case 'category':
-        if ($settings->getCategoryPageInlineRating() !== Settings::CATEGORY_PAGE_INLINE_RATING_ENABLED) {
-            return;
-        }
+        if ($settings->getCategoryPageInlineRating() !== Settings::CATEGORY_PAGE_INLINE_RATING_ENABLED) return;
+
         break;
     default:
         return;
